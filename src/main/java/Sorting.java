@@ -32,7 +32,16 @@ public class Sorting {
      */
     @SuppressWarnings("unused")
     private static int[] bubbleSort(final int[] array) {
-        return null;
+        for (int i = 0; i < array.length - 1; i++) {
+            for (int j = 0; j < array.length - i - 1; j++) {
+                if (array[j] > array[j + 1]) {
+                    int temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+                }
+            }
+        }
+        return array;
     }
 
     /**
@@ -43,7 +52,18 @@ public class Sorting {
      */
     @SuppressWarnings("unused")
     private static int[] selectionSort(final int[] array) {
-        return null;
+        for (int i = 0; i < array.length - 1; i++) {
+            int min = i;
+            for (int j = i + 1; j < array.length; j++) {
+                if (array[j] < array[min]) {
+                    min = j;
+                }
+            }
+            int temp = array[min];
+            array[min] = array[i];
+            array[i] = temp;
+        }
+        return array;
     }
 
     /**
@@ -54,7 +74,43 @@ public class Sorting {
      */
     @SuppressWarnings("unused")
     private static int[] mergeSort(final int[] array) {
-        return null;
+        int left = array[0];
+        int middle = array[array.length / 2];
+        int right = array[array.length - 1];
+        int one = middle - left + 1;
+        int two = right - middle;
+        int[] l = new int[one];
+        int[] r = new int[two];
+        for (int i = 0; i < one; i++) {
+            l[i] = array[left + i];
+        }
+        for (int j = 0; j < two; j++) {
+            r[j] = array[middle + 1 + j];
+        }
+        int i = 0;
+        int j = 0;
+        int k = 0;
+        while (i < one && j < two) {
+            if (l[i] <= r[j]) {
+                array[k] = l[i];
+                i++;
+            } else {
+                array[k] = r[j];
+                j++;
+            }
+            k++;
+        }
+        while (i < one) {
+            array[k] = l[i];
+            i++;
+            k++;
+        }
+        while (j < two) {
+            array[k] = r[j];
+            j++;
+            k++;
+        }
+        return array;
     }
 
     /**
@@ -176,7 +232,10 @@ public class Sorting {
         int whichAlgorithm;
         while (true) {
             System.out.println("Enter the sorting algorithm that you want to use"
-                    + " (1 for bubble sort, 2 for insertion sort, 3 for merge sort, 4 for built-in): ");
+                    + " (1 for bubble sort,"
+                    + " 2 for insertion sort,"
+                    + "3 for merge sort,"
+                    + "4 for built-in): ");
             whichAlgorithm = userInput.nextInt();
             if (whichAlgorithm > 0 && whichAlgorithm < 5) {
                 break;
